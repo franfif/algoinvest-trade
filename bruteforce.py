@@ -16,7 +16,7 @@ class Share:
 
 def get_shares(csvfile):
     """ Take a csv file name and return a list of Share objects"""
-    list_of_shares = []
+    shares = []
     with open(csvfile) as csvfile:
         shares_from_file = csv.reader(csvfile)
         first_row = True
@@ -27,8 +27,9 @@ def get_shares(csvfile):
                 first_row = False
             else:
                 share = Share(row[0], float(row[1]), float(row[2]))
-                list_of_shares.append(share)
-    return list_of_shares
+                shares.append(share)
+    return shares
+
 
 def get_combinations(shares):
     """ Take a lit of Share objects and
