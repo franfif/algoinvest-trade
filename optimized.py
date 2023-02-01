@@ -15,23 +15,35 @@ class Share:
         return self.price * self.profit / 100
 
 
+class WrongColumnsError(BaseException):
+    pass
+
+
 # CONTROLLERS
 # Share controllers
-def get_shares(csvfile):
+def get_shares():
     """ Take a csv file name and return a list of Share objects"""
-    shares = []
-    with open(csvfile) as csvfile:
-        shares_from_file = csv.reader(csvfile)
-        first_row = True
-        for row in shares_from_file:
-            if first_row:
-                if row[0] != "name" and row[1] != "price" and row[2] != "profit":
-                    print("Use a file with three columns named 'names', 'price' and 'profit'")
-                    return None
-                first_row = False
-            else:
-                share = Share(row[0], float(row[1]), float(row[2]))
-                shares.append(share)
+    while True:
+        csvfile = get_file()
+        shares = []
+        try:
+            with open(csvfile) as csvfile:
+                shares_from_file = csv.reader(csvfile)
+                first_row = True
+                for row in shares_from_file:
+                    if first_row:
+                        if row[0] != "name" or row[1] != "price" or row[2] != "profit":
+                            csvfile.close()
+                            raise WrongColumnsError
+                        first_row = False
+                    else:
+                        share = Share(row[0], float(row[1]), float(row[2]))
+                        shares.append(share)
+            break
+        except OSError:
+            print(csvfile, "could be found, make sure to enter the path as well.")
+        except WrongColumnsError:
+            print("Use a file with three columns named 'names', 'price' and 'profit'")
     return shares
 
 
@@ -73,7 +85,25 @@ def print_shares(shares):
     print("Total profit", get_total_actual_profit(shares))
 
 
-list_of_shares = get_shares('./share_files/original_dataset.csv')
+def get_file():
+    print("Please enter the path and name of the file containing the shares")
+    print("or choose one of these:")
+    print("A. original_dataset.csv")
+    print("B. dataset1_Python+P7.csv")
+    print("C. dataset2_Python+P7.csv")
+    file_name = input()
+    match file_name.lower():
+        case "a":
+            return "./share_files/original_dataset.csv"
+        case "b":
+            return "./share_files/dataset1_Python+P7.csv"
+        case "c":
+            return "./share_files/dataset2_Python+P7.csv"
+        case _:
+            return file_name
+
+
+list_of_shares = get_shares()
 
 print("List of the shares yielding one of the best profits for 500€ or less:")
 quick_best_shares = buy_shares(sort_by_profit_percentage(list_of_shares))

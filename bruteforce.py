@@ -16,24 +16,35 @@ class Share:
         return self.price * self.profit / 100
 
 
+class WrongColumnsError(BaseException):
+    pass
+
+
 # CONTROLLERS
 # Share controllers
 def get_shares():
     """ Take a csv file name and return a list of Share objects"""
-    csvfile = get_file()
-    shares = []
-    with open(csvfile) as csvfile:
-        shares_from_file = csv.reader(csvfile)
-        first_row = True
-        for row in shares_from_file:
-            if first_row:
-                while row[0] != "name" and row[1] != "price" and row[2] != "profit":
-                    print("Use a file with three columns named 'names', 'price' and 'profit'")
-                    get_shares()
-                first_row = False
-            else:
-                share = Share(row[0], float(row[1]), float(row[2]))
-                shares.append(share)
+    while True:
+        csvfile = get_file()
+        shares = []
+        try:
+            with open(csvfile) as csvfile:
+                shares_from_file = csv.reader(csvfile)
+                first_row = True
+                for row in shares_from_file:
+                    if first_row:
+                        if row[0] != "name" or row[1] != "price" or row[2] != "profit":
+                            csvfile.close()
+                            raise WrongColumnsError
+                        first_row = False
+                    else:
+                        share = Share(row[0], float(row[1]), float(row[2]))
+                        shares.append(share)
+            break
+        except OSError:
+            print(csvfile, "could be found, make sure to enter the path as well.")
+        except WrongColumnsError:
+            print("Use a file with three columns named 'names', 'price' and 'profit'")
     return shares
 
 
@@ -102,7 +113,6 @@ def get_file():
             return "./share_files/dataset2_Python+P7.csv"
         case _:
             return file_name
-
 
 
 list_of_shares = get_shares()
