@@ -85,7 +85,7 @@ def get_combinations(shares):
 
 
 def sort_combinations_by_profit(combinations):
-    """ Take a collection of collections of share Objects
+    """ Take a collection of collections of Share objects
     and sort the collections by their actual profit"""
     combinations.sort(key=get_total_actual_profit, reverse=True)
 
