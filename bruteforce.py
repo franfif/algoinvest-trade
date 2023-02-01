@@ -97,6 +97,16 @@ def print_shares(shares):
     print("total profit", get_total_actual_profit(shares))
 
 
+def show_combinations(combinations) :
+    show_results = 5
+    if len(all_combinations) < 5:
+        show_results = len(all_combinations)
+
+    for i in range(show_results):
+        print("Combination", str(i + 1), "/", str(len(all_combinations)))
+        print_shares(all_combinations[i])
+
+
 def get_file():
     print("Please enter the path and name of the file containing the shares")
     print("or choose one of these:")
@@ -117,9 +127,5 @@ def get_file():
 
 list_of_shares = get_shares()
 all_combinations = get_combinations(list_of_shares)
-print(len(all_combinations))
 sort_combinations_by_profit(all_combinations)
-
-for i in range(5):
-    print("Combination " + str(i+1) + "/" + str(len(all_combinations)))
-    print_shares(all_combinations[i])
+show_combinations(all_combinations)
