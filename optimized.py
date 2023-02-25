@@ -9,7 +9,7 @@ MAX_COST = 500
 class Share:
     def __init__(self, name, price, profit):
         self.name = name
-        self.price = price
+        self.price = abs(price)
         self.profit = profit
 
     def get_actual_profit(self):
@@ -29,9 +29,9 @@ def get_shares():
         shares = []
         try:
             with open(csvfile) as csvfile:
-                shares_from_file = csv.reader(csvfile)
+                rows = csv.reader(csvfile)
                 first_row = True
-                for row in shares_from_file:
+                for row in rows:
                     if first_row:
                         if row[0] != "name" or row[1] != "price" or row[2] != "profit":
                             csvfile.close()
@@ -44,7 +44,7 @@ def get_shares():
         except OSError:
             print(csvfile, "could be found, make sure to enter the path as well.")
         except WrongColumnsError:
-            print("Use a file with three columns named 'names', 'price' and 'profit'")
+            print("Use a file with three columns named 'name', 'price' and 'profit'")
     return shares
 
 
@@ -114,4 +114,3 @@ print_shares(quick_best_shares)
 
 time_stop = perf_counter()
 print(f"Elapsed time during the whole program in seconds: {time_stop-time_start}")
-
