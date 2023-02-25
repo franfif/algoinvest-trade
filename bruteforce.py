@@ -1,6 +1,7 @@
 import itertools
 import csv
 import functools
+from time import perf_counter
 
 MAX_COST = 500
 
@@ -97,7 +98,7 @@ def print_shares(shares):
     print("total profit", get_total_actual_profit(shares))
 
 
-def show_combinations(combinations) :
+def show_combinations(combinations):
     show_results = 5
     if len(all_combinations) < 5:
         show_results = len(all_combinations)
@@ -126,6 +127,10 @@ def get_file():
 
 
 list_of_shares = get_shares()
+time_start = perf_counter()
 all_combinations = get_combinations(list_of_shares)
 sort_combinations_by_profit(all_combinations)
 show_combinations(all_combinations)
+
+time_stop = perf_counter()
+print(f"Elapsed time during the whole program in seconds: {time_stop - time_start}")

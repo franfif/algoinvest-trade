@@ -1,5 +1,6 @@
 import csv
 import functools
+from time import perf_counter
 
 MAX_COST = 500
 
@@ -105,6 +106,12 @@ def get_file():
 
 list_of_shares = get_shares()
 
+time_start = perf_counter()
+
 print("List of the shares yielding one of the best profits for 500€ or less:")
 quick_best_shares = buy_shares(sort_by_profit_percentage(list_of_shares))
 print_shares(quick_best_shares)
+
+time_stop = perf_counter()
+print(f"Elapsed time during the whole program in seconds: {time_stop-time_start}")
+
