@@ -12,9 +12,9 @@ The goal of this project is to design two algorithms:
 2. An [optimized solution](./optimized.py) that will not look over every combination but will buy the best combination possible in a very short time (less than a second).
 
 ## Installation
-Clone this project to a local repository.
-Python3 is needed to execute these algorithms.
-No virtual environment is needed at this time.
+Clone this project to a local repository.<br>
+Python3 is needed to execute these algorithms.<br>
+No virtual environment is needed for this project.
 
 ## How to use the algorithms
 In the terminal, from the cloned repository, use one the following commands:
@@ -35,17 +35,17 @@ If you choose to enter another file's path and name, it must:
 - have three columns respectively named 'share', 'price', and 'profit' with each share's name, price and profit in the rows below.
 
 ## Brute-force solution
-The brute-force solution uses the itertools module to get all the possible combinations of shares. 
-It then looks over each of them, excluding the combinations too expensive to be bought, and compare their actual profit over two years.
+The brute-force solution uses the itertools module to get all the possible combinations of shares. <br>
+It then looks over each of them, excluding the combinations too expensive to be bought, and compare their actual profit over two years.<br>
 The 5 best combinations are picked out and provided to the user.
 
-This solution has an exponential time complexity of O(2<sup>n</sup>), which makes it not usable for a large number of shares.
+This solution has an exponential time complexity of O(2<sup>n</sup>), which makes it not usable for a large number of shares.<br>
 Space complexity is linear: O(n).
 
 ## Optimized solution
 The optimized solution orders the shares by their profit percentage, then proceeds to buy the shares in order from the biggest profit percentage, until there is not enough money left to buy any more share.
 
-This solution has a similar space complexity than the brute-force solution (linear space complexity, O(n)). 
+This solution has a similar space complexity than the brute-force solution (linear space complexity, O(n)). <br>
 It is much faster than the brute-force solution, with a linearithmic time complexity of O(n log n).
 
 However, this solution only looks for one combination, based on the ordered list of available shares and the cost of each share.
@@ -65,7 +65,7 @@ For instance, for a wallet limited to 500€:
 The optimized solution would start by buying the share with the best profit percentage, 
 Share A, and would not be able to buy any other share. 
 
-The actual profit would be 80€.
+The actual profit would be 80€.<br>
 However, the best solution would be to buy Shares B, C, D and E, who have a lower profit 
 percentage but together yield a better actual profit (86.30€).
 
@@ -76,5 +76,5 @@ In this second situation, for a wallet limited to 500€, the optimized solution
 | Share A | 150   | 0.2      | 30            |
 | Share B | 400   | 0.19     | 76            |
  
-Doing so would prevent buying the next share with a much larger actual profit, because the amount of money left is then too low.
+Doing so would prevent buying the next share with a much larger actual profit, because the amount of money left is then too low.<br>
 In this situation, the share with a lower percentage profit would have been much more profitable, simply because the cost is higher.
