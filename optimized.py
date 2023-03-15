@@ -61,6 +61,7 @@ def get_total_actual_profit(shares):
 
 
 def buy_shares(shares, wallet=MAX_COST):
+    """ Buy shares in the order provided, until wallet value is too low"""
     shares_bought = []
     for share in shares:
         if wallet >= share.price:
@@ -72,7 +73,7 @@ def buy_shares(shares, wallet=MAX_COST):
 
 
 def sort_by_profit_percentage(shares):
-    """take a list of Share objects
+    """ Take a list of Share objects
     return a new list with the same objects, sorted by their individual profit"""
     sorted_shares = list(shares)
     sorted_shares.sort(key=lambda x: x.profit, reverse=True)

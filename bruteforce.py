@@ -62,6 +62,7 @@ def get_total_actual_profit(shares):
 
 
 def buy_shares(shares, wallet=MAX_COST):
+    """ Buy shares in the order provided, until wallet value is too low"""
     shares_bought = []
     for share in shares:
         if wallet >= share.price:
