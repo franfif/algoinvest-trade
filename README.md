@@ -77,4 +77,4 @@ In this second situation, for a wallet limited to 500€, the optimized solution
 | Share B | 400   | 0.19     | 76            |
  
 Doing so would prevent buying the next share with a much larger actual profit, because the amount of money left is then too low.<br>
-In this situation, the share with a lower percentage profit would have been much more profitable, simply because the cost is higher.
+In this situation, the share with a lower percentage profit would have been much more profitable, simply because the cost was higher.
