@@ -64,7 +64,7 @@ def buy_shares(shares, wallet=MAX_COST):
     """ Buy shares in the order provided, until wallet value is too low"""
     shares_bought = []
     for share in shares:
-        if wallet >= share.price:
+        if 0 < share.price <= wallet:
             shares_bought.append(share)
             wallet -= share.price
         elif wallet == 0:
@@ -89,20 +89,20 @@ def print_shares(shares):
 
 def get_file():
     print("Please enter the path and name of the file containing the shares")
-    print("or choose one of these:")
-    print("A. original_dataset.csv")
-    print("B. dataset1_Python+P7.csv")
-    print("C. dataset2_Python+P7.csv")
+    # print("or choose one of these:")
+    # print("A. original_dataset.csv")
+    # print("B. dataset1_Python+P7.csv")
+    # print("C. dataset2_Python+P7.csv")
     file_name = input()
-    match file_name.lower():
-        case "a":
-            return "./share_files/original_dataset.csv"
-        case "b":
-            return "./share_files/dataset1_Python+P7.csv"
-        case "c":
-            return "./share_files/dataset2_Python+P7.csv"
-        case _:
-            return file_name
+    # match file_name.lower():
+    #     case "a":
+    #         return "./share_files/original_dataset.csv"
+    #     case "b":
+    #         return "./share_files/dataset1_Python+P7.csv"
+    #     case "c":
+    #         return "./share_files/dataset2_Python+P7.csv"
+    #     case _:
+    return file_name
 
 
 list_of_shares = get_shares()
